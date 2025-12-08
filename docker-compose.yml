@@ -1,0 +1,87 @@
+services:
+  eureka-server:
+    build:
+      context: ./eureka-server
+    image: eureka-server
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - microservice-network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - microservice-network
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    image: api-gateway
+    container_name: api-gateway
+    env_file:
+      - .env
+    environment:
+      SPRING_APPLICATION_NAME: api-gateway
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE}
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8080/realms/micro-realm
+    depends_on:
+      - eureka-server
+      - keycloak
+    ports:
+      - "8080:8080"
+    networks:
+      - microservice-network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.4.7
+    container_name: keycloak
+    command: start-dev
+    env_file:
+      - .env
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+    ports:
+      - "8180:8080"
+    depends_on:
+      - postgres
+    networks:
+      - microservice-network
+
+  user-service:
+    build:
+      context: ./user-service
+    image: user-service
+    container_name: user-service
+    env_file:
+      - .env
+    environment:
+      SPRING_APPLICATION_NAME: user-service
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE}
+      SPRING_DATASOURCE_URL: ${DATABASE_URL}
+    depends_on:
+      - eureka-server
+      - postgres
+    ports:
+      - "8081:8081"
+    networks:
+      - microservice-network
+
+networks:
+  microservice-network:
+    driver: bridge
+volumes:
+  postgres_data:
