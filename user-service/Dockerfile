@@ -1,5 +1,5 @@
 # Sử dụng image JDK 17 chính thức
-FROM openjdk:17-jdk
+FROM azul/zulu-openjdk:17
 
 # Tạo thư mục ứng dụng trong container
 WORKDIR /app
