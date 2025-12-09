@@ -75,12 +75,30 @@ services:
     environment:
       SPRING_APPLICATION_NAME: user-service
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE}
-      SPRING_DATASOURCE_URL: ${DATABASE_URL}
     depends_on:
       - eureka-server
       - postgres
     ports:
       - "8081:8081"
+    networks:
+      - microservice-network
+
+  task-service:
+    build:
+      context: ./task-service
+    image: task-service
+    container_name: task-service
+    env_file:
+      - .env
+    environment:
+      SPRING_APPLICATION_NAME: task-service
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE}
+      SPRING_DATASOURCE_URL: ${TASK_DATABASE_URL}
+    depends_on:
+      - eureka-server
+      - postgres
+    ports:
+      - "8082:8082"
     networks:
       - microservice-network
 
