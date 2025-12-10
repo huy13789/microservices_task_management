@@ -4,3 +4,4 @@ CREATE DATABASE keycloak_db;
 
 GRANT ALL PRIVILEGES ON DATABASE user_db TO app_user;
 GRANT ALL PRIVILEGES ON DATABASE task_db TO app_user;
+GRANT ALL PRIVILEGES ON DATABASE keycloak_db TO app_user;

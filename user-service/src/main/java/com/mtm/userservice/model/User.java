@@ -2,14 +2,17 @@ package com.mtm.userservice.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "users")
+@Setter
 public class User {
 
     @Id
@@ -25,6 +28,9 @@ public class User {
     @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "password")
+    private String password;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role_name")
@@ -32,6 +38,10 @@ public class User {
 
     @Column(name = "created_at")
     @CreationTimestamp
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
+
+    @Column(name = "update_at")
+    @CreationTimestamp
+    private LocalDateTime updateAt;
 
 }
