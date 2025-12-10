@@ -17,7 +17,7 @@ public class Label {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    Integer id;
+    Long id;
 
     @Column(name = "title", nullable = false)
     String title;
@@ -30,5 +30,5 @@ public class Label {
     LabelEntityType entityType;
 
     @Column(name = "entity_id", nullable = false)
-    Integer entityId;
+    Long entityId;
 }

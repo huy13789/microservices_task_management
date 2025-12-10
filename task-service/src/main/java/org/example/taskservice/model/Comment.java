@@ -21,13 +21,13 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    Integer id;
+    Long id;
 
     @Column(name = "content", nullable = false)
     String content;
 
     @Column(name = "user_id", nullable = false)
-    Integer userId;
+    String userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "card_id", nullable = false)
