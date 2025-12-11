@@ -2,6 +2,7 @@ package org.example.taskservice.mapper;
 
 import org.example.taskservice.dto.ColumnDto;
 import org.example.taskservice.form.ColumnCreateForm;
+import org.example.taskservice.form.ColumnUpdateForm;
 import org.example.taskservice.model.Board;
 import org.example.taskservice.model.BoardColumn;
 
@@ -9,8 +10,9 @@ public class ColumnMapper {
     // Create BoardColumn
     public static BoardColumn map(ColumnCreateForm form, Board board) {
         var column = new BoardColumn();
-        map(form, column, board);
-
+        column.setTitle(form.getTitle());
+        column.setDescription(form.getDescription());
+        column.setBoard(board);
         return column;
     }
 
@@ -30,7 +32,7 @@ public class ColumnMapper {
     }
 
     // Modifier data
-    public static void map(ColumnCreateForm form, BoardColumn boardColumn, Board board) {
+    public static void map(ColumnUpdateForm form, BoardColumn boardColumn, Board board) {
         boardColumn.setTitle(form.getTitle());
         boardColumn.setDescription(form.getDescription());
         boardColumn.setBoard(board);

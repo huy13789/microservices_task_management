@@ -2,11 +2,13 @@ package org.example.taskservice.form;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.example.taskservice.model.BoardVisibility;
 
 @Getter
 @Setter
-public class ColumnCreateForm {
+public class BoardUpdateForm {
     private String title;
     private String description;
-    private Long boardId;
+    private String background;
+    private BoardVisibility visibility;
 }

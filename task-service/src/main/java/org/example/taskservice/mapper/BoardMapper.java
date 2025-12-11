@@ -2,6 +2,7 @@ package org.example.taskservice.mapper;
 
 import org.example.taskservice.dto.BoardDto;
 import org.example.taskservice.form.BoardCreateForm;
+import org.example.taskservice.form.BoardUpdateForm;
 import org.example.taskservice.model.Board;
 
 public class BoardMapper {
@@ -30,11 +31,10 @@ public class BoardMapper {
         return boardDto;
     }
 
-    public static void map(BoardCreateForm form, Board board){
+    public static void map(BoardUpdateForm form, Board board){
         board.setTitle(form.getTitle());
         board.setDescription(form.getDescription());
         board.setBackground(form.getBackground());
-        board.setIsClosed(board.getIsClosed());
         board.setVisibility(form.getVisibility());
     }
     
