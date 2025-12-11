@@ -13,8 +13,10 @@ import org.example.taskservice.service.ColumnService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
 @AllArgsConstructor
 public class ColumnServiceImpl implements ColumnService {
     private static double POSITION_GAP = 65536.0;
@@ -35,6 +37,7 @@ public class ColumnServiceImpl implements ColumnService {
     }
 
     @Override
+    @Transactional
     public ColumnDto create(ColumnCreateForm form) {
         var board = boardRepository.findById(form.getBoardId()).orElseThrow(
             () -> new ResourceNotFoundException("Board with id " + form.getBoardId() + " not found")
@@ -56,6 +59,7 @@ public class ColumnServiceImpl implements ColumnService {
     }
 
     @Override
+    @Transactional
     public ColumnDto update(Long id, ColumnUpdateForm form) {
         // Get column update
         var column = columnRepository.findById(id).orElseThrow(
@@ -100,6 +104,7 @@ public class ColumnServiceImpl implements ColumnService {
     }
 
     @Override
+    @Transactional
     public ColumnDto softDelete(Long id) {
         var column = columnRepository.findById(id).orElseThrow(
             () -> new ResourceNotFoundException("Column with id " + id + " not found")
@@ -114,6 +119,7 @@ public class ColumnServiceImpl implements ColumnService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         var column = columnRepository.findById(id).orElseThrow(
             () -> new ResourceNotFoundException("Column with id " + id + " not found")

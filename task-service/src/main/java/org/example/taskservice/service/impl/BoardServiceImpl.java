@@ -11,8 +11,10 @@ import org.example.taskservice.service.BoardService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
 @AllArgsConstructor
 public class BoardServiceImpl implements BoardService {
     private BoardRepository boardRepository;
@@ -23,6 +25,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public BoardDto create(BoardCreateForm form) {
         var board = BoardMapper.map(form);
         board.setOwnerId("uuid-123-456");
@@ -39,6 +42,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public BoardDto update(Long id, BoardUpdateForm form) {
         var board = boardRepository.findById(id).orElseThrow(
             () -> new ResourceNotFoundException("Board with id " + id + " not found")
@@ -49,6 +53,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public BoardDto softDelete(Long id) {
         var board = boardRepository.findById(id).orElseThrow(
             () -> new ResourceNotFoundException("Board with id " + id + " not found")
@@ -63,6 +68,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         var board = boardRepository.findById(id).orElseThrow(
             () -> new ResourceNotFoundException("Board with id " + id + " not found")
