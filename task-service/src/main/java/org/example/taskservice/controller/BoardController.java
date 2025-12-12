@@ -11,36 +11,36 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1/task")
+@RequestMapping("/api/v1/boards")
 public class BoardController {
     private BoardService boardService;
 
-    @GetMapping("/boards")
+    @GetMapping
     public Page<BoardDto> findAll(Pageable pageable) {
         return boardService.findAll(pageable);
     }
 
-    @PostMapping("/boards")
+    @PostMapping
     public BoardDto create(@RequestBody BoardCreateForm form){
         return boardService.create(form);
     }
 
-    @GetMapping("/boards/{boardId}")
+    @GetMapping("/{boardId}")
     public BoardDto findById(@PathVariable Long boardId){
         return boardService.findByBoardId(boardId);
     }
 
-    @PatchMapping("/boards/{boardId}")
+    @PatchMapping("/{boardId}")
     public BoardDto update(@PathVariable Long boardId, @RequestBody BoardUpdateForm form){
         return boardService.update(boardId, form);
     }
 
-    @DeleteMapping("/boards/{boardId}/close")
+    @DeleteMapping("/{boardId}/close")
     public BoardDto close(@PathVariable Long boardId){
         return boardService.softDelete(boardId);
     }
 
-    @DeleteMapping("/boards/{boardId}/delete")
+    @DeleteMapping("/{boardId}/delete")
     public String delete(@PathVariable Long boardId){
         boardService.delete(boardId);
         return "Board deleted successfully";

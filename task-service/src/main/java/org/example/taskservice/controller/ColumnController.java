@@ -11,36 +11,36 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/columns")
 public class ColumnController {
     private ColumnService columnService;
 
-    @GetMapping("/columns")
+    @GetMapping
     public Page<ColumnDto> findAll(Pageable pageable) {
         return columnService.findAll(pageable);
     }
 
-    @GetMapping("/columns/{columnId}")
+    @GetMapping("/{columnId}")
     public ColumnDto findByColumnId(@PathVariable Long columnId){
         return columnService.findByColumnId(columnId);
     }
 
-    @PostMapping("/columns")
+    @PostMapping
     public ColumnDto create(@RequestBody ColumnCreateForm form){
         return columnService.create(form);
     }
 
-    @PatchMapping("/columns/{columnId}")
+    @PatchMapping("/{columnId}")
     public ColumnDto update(@PathVariable Long columnId, @RequestBody ColumnUpdateForm form){
         return columnService.update(columnId, form);
     }
 
-    @DeleteMapping("/columns/{columnId}/archive")
+    @DeleteMapping("/{columnId}/archive")
     public ColumnDto archive(@PathVariable Long columnId){
         return columnService.softDelete(columnId);
     }
 
-    @DeleteMapping("/columns/{columnId}/delete")
+    @DeleteMapping("/{columnId}/delete")
     public String delete(@PathVariable Long columnId){
         columnService.delete(columnId);
         return "Column deleted successfully";

@@ -5,8 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CardCreateForm {
+public class CardUpdateForm {
     private String title;
     private String description;
     private Long columnId;
+    private Integer newIndex;
 }

@@ -1,4 +1,4 @@
-package org.example.taskservice.exception;
+package org.example.taskservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

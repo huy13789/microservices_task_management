@@ -17,7 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Builder
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,11 +33,9 @@ public class Board {
     String background;
 
     @Column(name = "is_closed")
-    @Builder.Default
     Boolean isClosed = false;
 
     @Enumerated(EnumType.STRING)
-    @Builder.Default
     @Column(name = "visibility", nullable = false)
     BoardVisibility visibility =  BoardVisibility.PRIVATE;
 

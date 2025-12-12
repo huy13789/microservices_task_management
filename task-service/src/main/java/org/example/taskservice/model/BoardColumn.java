@@ -17,7 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Builder
 public class BoardColumn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +26,12 @@ public class BoardColumn {
     @Column(name = "title", nullable = false)
     String title;
 
-    @Column(name = "description", nullable = true)
+    @Column(name = "description")
     String description;
 
-    @Builder.Default
     @Column(name = "position", nullable = false)
     Double position = 0.0;
 
-    @Builder.Default
     @Column(name = "is_archived")
     Boolean isArchived = false;
 
