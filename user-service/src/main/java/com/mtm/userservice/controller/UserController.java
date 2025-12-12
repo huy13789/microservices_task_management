@@ -15,7 +15,7 @@ public class UserController {
 
     private UserService userService;
 
-    @PostMapping("/")
+    @PostMapping
     public UserDTO sign_Up(@RequestBody CreateUserForm form) {
         return userService.create(form);
     }
@@ -38,10 +38,10 @@ public class UserController {
     }
 
     /*
-    GET http://localhost:8081/api/v1/user/?page=0&size=10&sort=username,asc --local version
-    GET http://localhost:8080/user/?page=0&size=10&sort=username,asc -- gateway version
+    GET http://localhost:8081/api/v1/user/?page=0&size=10&sort=firstName,asc --local version
+    GET http://localhost:8080/user/?page=0&size=10&sort=firstName,asc -- gateway version
      */
-    @GetMapping("/")
+    @GetMapping
     public Page<UserDTO> findAll(Pageable pageable) {
         return userService.findAll(pageable);
     }

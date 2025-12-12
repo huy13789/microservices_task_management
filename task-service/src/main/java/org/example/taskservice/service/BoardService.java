@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-@Service
+
 public interface BoardService {
     Page<BoardDto> findAll(Pageable pageable);
     BoardDto findByBoardId(Long id);

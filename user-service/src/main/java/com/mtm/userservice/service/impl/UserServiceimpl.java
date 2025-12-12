@@ -11,21 +11,25 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
 @Transactional(readOnly = true)
 public class UserServiceimpl implements UserService {
     private UserRepository userRepository;
+
     @Override
     @Transactional
     public UserDTO create(CreateUserForm form) {
         var user = UserMapper.map(form);
+        String id = UUID.randomUUID().toString();
+        user.setId(id);
+        user.setRoles(new ArrayList<>(List.of("User")));
         var saveuser = userRepository.save(user);
         return UserMapper.map(saveuser);
     }
-
     @Override
     public UserDTO update(String id, CreateUserForm form) {
         var user = userRepository.findById(id)
