@@ -4,7 +4,6 @@ server:
 spring:
   application:
     name: api-gateway
-
   main:
     web-application-type: reactive
 
@@ -13,15 +12,48 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://keycloak:8080/realms/micro-realm
+          jwk-set-uri: http://keycloak:8080/realms/micro-realm/protocol/openid-connect/certs
 
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+
       discovery:
         locator:
           enabled: true
           lower-case-service-id: true
 
+      default-filters:
+        - TokenRelay
+
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v1/users/**
+          filters:
+            - StripPrefix=2
+
+        - id: task-service
+          uri: lb://task-service
+          predicates:
+            - Path=/api/v1/tasks/**
+          filters:
+            - StripPrefix=2
+
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-server:8761/eureka
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true

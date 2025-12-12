@@ -37,6 +37,7 @@ services:
       SPRING_APPLICATION_NAME: api-gateway
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE}
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8080/realms/micro-realm
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/micro-realm/protocol/openid-connect/certs
     depends_on:
       - eureka-server
       - keycloak
@@ -58,6 +59,11 @@ services:
       KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak_db
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KC_PROXY: "edge"
+
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_HTTP_ENABLED: "true"
     ports:
       - "8180:8080"
     depends_on:
@@ -76,6 +82,7 @@ services:
       SPRING_APPLICATION_NAME: user-service
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE}
       SPRING_DATASOURCE_URL: ${DATABASE_URL}
+      KEYCLOAK_HOST: keycloak:8080
     depends_on:
       - eureka-server
       - postgres

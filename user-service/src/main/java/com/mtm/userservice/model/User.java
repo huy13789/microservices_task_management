@@ -29,14 +29,6 @@ public class User {
     @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "password")
-    private String password;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role_name")
-    private List<String> roles;
-
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;

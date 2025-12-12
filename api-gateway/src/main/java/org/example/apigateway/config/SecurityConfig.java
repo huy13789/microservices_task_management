@@ -3,12 +3,15 @@ package org.example.apigateway.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.*;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import reactor.core.publisher.Mono;
 
@@ -60,19 +63,17 @@ public class SecurityConfig {
 //    }
 
     @Bean
-    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-
-        return http
-                .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .authorizeExchange(exchange -> exchange
-                        .pathMatchers("/actuator/**").permitAll()
-                        .pathMatchers("/public/**").permitAll()
-                        .pathMatchers("/eureka/**").permitAll()
+    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeExchange(exchanges -> exchanges
+                        // Cho phép đăng ký/đăng nhập đi qua mà không cần Token
+                        // Lưu ý: Phải khớp với Path client gọi (có /api/v1)
+                        .pathMatchers("/api/v1/users/signup", "/api/v1/users/login").permitAll()
+                        // Các API khác bắt buộc phải có Token hợp lệ
                         .anyExchange().authenticated()
                 )
-                .oauth2ResourceServer(oauth2 ->
-                        oauth2.jwt(jwt -> {})
-                )
-                .build();
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+        return http.build();
     }
 }

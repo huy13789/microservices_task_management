@@ -9,23 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserMapper {
-    public static User map(CreateUserForm createUserForm) {
-        var user = new User();
-        user.setMail(createUserForm.getMail());
-        user.setFirstName(createUserForm.getFirstName());
-        user.setLastName(createUserForm.getLastName());
-        //user.setRoles(List.of("User"));
+    public static User map(CreateUserForm form) {
+        User user = new User();
+        user.setMail(form.getMail());
+        user.setFirstName(form.getFirstName());
+        user.setLastName(form.getLastName());
         return user;
     }
 
     public static UserDTO map(User user) {
-        var dto = new UserDTO();
+        UserDTO dto = new UserDTO();
         dto.setId(user.getId());
-        dto.setEmail(user.getMail());
-        dto.setLastName(user.getLastName());
+        dto.setMail(user.getMail());
         dto.setFirstName(user.getFirstName());
-        dto.setCreateAt(user.getCreatedAt());
-        dto.setUpdateAt(user.getUpdateAt());
+        dto.setLastName(user.getLastName());
         return dto;
     }
 
