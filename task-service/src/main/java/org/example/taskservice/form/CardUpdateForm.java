@@ -8,6 +8,6 @@ import lombok.Setter;
 public class CardUpdateForm {
     private String title;
     private String description;
-    private Long boardId;
+    private Long columnId;
     private Integer newIndex;
 }

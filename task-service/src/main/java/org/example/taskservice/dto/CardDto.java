@@ -13,6 +13,7 @@ public class CardDto {
     private String description;
     private Double position;
     private Boolean isArchived;
+    private ColumnDto column;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

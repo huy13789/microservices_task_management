@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Builder
 public class BoardMember {
 
     @Id
@@ -30,8 +29,7 @@ public class BoardMember {
     @Column(name = "user_id", nullable = false)
     String userId;
 
-    @Builder.Default
-    @Column(name = "role")
+    @Column(name = "role", columnDefinition = "member")
     String role = "member";
 
     @CreatedDate

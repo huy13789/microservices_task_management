@@ -8,4 +8,5 @@ import lombok.Setter;
 public class CardCreateForm {
     private String title;
     private String description;
+    private Long columnId;
 }

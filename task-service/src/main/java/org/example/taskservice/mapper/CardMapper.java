@@ -21,6 +21,8 @@ public class CardMapper {
         cardDto.setTitle(card.getTitle());
         cardDto.setDescription(card.getDescription());
         cardDto.setIsArchived(card.getIsArchived());
+        cardDto.setColumn(ColumnMapper.map(card.getBoardColumn()));
+        cardDto.setPosition(card.getPosition());
         cardDto.setCreatedAt(card.getCreatedAt());
         cardDto.setUpdatedAt(card.getUpdatedAt());
         return cardDto;

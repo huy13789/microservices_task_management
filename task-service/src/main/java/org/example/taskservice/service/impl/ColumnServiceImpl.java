@@ -109,12 +109,7 @@ public class ColumnServiceImpl implements ColumnService {
         var column = columnRepository.findById(id).orElseThrow(
             () -> new ResourceNotFoundException("Column with id " + id + " not found")
         );
-
-        if (column.getIsArchived() == false)
-            column.setIsArchived(true);
-        else
-            column.setIsArchived(false);
-
+        column.setIsArchived(column.getIsArchived() == false);
         return ColumnMapper.map(columnRepository.save(column));
     }
 

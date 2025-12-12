@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Builder
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +32,6 @@ public class Comment {
     @JoinColumn(name = "card_id", nullable = false)
     Card card;
 
-    @Builder.Default
     @Column(name = "is_modified")
     Boolean isModified = false;
 
