@@ -5,9 +5,7 @@ import org.example.taskservice.form.ColumnCreateForm;
 import org.example.taskservice.form.ColumnUpdateForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
-@Service
 public interface ColumnService {
     Page<ColumnDto> findAll(Pageable pageable);
     ColumnDto findByColumnId(Long id);
