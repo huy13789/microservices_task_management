@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -41,7 +42,7 @@ public class User {
     private LocalDateTime createdAt;
 
     @Column(name = "update_at")
-    @CreationTimestamp
+    @UpdateTimestamp
     private LocalDateTime updateAt;
 
 }
