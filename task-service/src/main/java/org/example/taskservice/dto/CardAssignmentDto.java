@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class CardAssignmentDto {
-    private Long id;
     private CardDto card;
     private String userId;
     private String role;
