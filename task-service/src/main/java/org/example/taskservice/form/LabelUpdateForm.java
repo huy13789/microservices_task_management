@@ -2,13 +2,10 @@ package org.example.taskservice.form;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.example.taskservice.model.LabelEntityType;
 
 @Getter
 @Setter
-public class LabelCreateForm {
+public class LabelUpdateForm {
     private String title;
     private String color;
-    private LabelEntityType entityType;
-    private Long entityId;
 }

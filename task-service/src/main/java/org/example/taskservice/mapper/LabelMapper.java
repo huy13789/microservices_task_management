@@ -2,6 +2,7 @@ package org.example.taskservice.mapper;
 
 import org.example.taskservice.dto.LabelDto;
 import org.example.taskservice.form.LabelCreateForm;
+import org.example.taskservice.form.LabelUpdateForm;
 import org.example.taskservice.model.Label;
 
 public class LabelMapper {
@@ -9,7 +10,8 @@ public class LabelMapper {
         var label = new Label();
         label.setTitle(form.getTitle());
         label.setColor(form.getColor());
-
+        label.setEntityType(form.getEntityType());
+        label.setEntityId(form.getEntityId());
         return label;
     }
 
@@ -24,7 +26,7 @@ public class LabelMapper {
         return labelDto;
     }
 
-    public static void map(LabelCreateForm form, Label label) {
+    public static void map(LabelUpdateForm form, Label label) {
         label.setTitle(form.getTitle());
         label.setColor(form.getColor());
     }
