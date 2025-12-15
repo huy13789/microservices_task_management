@@ -29,7 +29,7 @@ public class BoardMember {
     @Column(name = "user_id", nullable = false)
     String userId;
 
-    @Column(name = "role", columnDefinition = "member")
+    @Column(name = "role")
     String role = "member";
 
     @CreatedDate

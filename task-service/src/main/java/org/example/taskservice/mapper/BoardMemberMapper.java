@@ -8,8 +8,9 @@ import org.example.taskservice.model.BoardMember;
 public class BoardMemberMapper {
     public static BoardMember map(BoardMemberCreateForm form, Board board){
         var boardMember = new BoardMember();
-        map(form, boardMember, board);
-        
+        boardMember.setUserId(form.getUserId());
+        boardMember.setRole(form.getRole());
+        boardMember.setBoard(board);
         return boardMember;
     }
 
@@ -20,13 +21,6 @@ public class BoardMemberMapper {
         boardMemberDto.setUserId(boardMember.getUserId());
         boardMemberDto.setRole(boardMember.getRole());
         boardMemberDto.setJoinedAt(boardMember.getJoinedAt());
-
         return boardMemberDto;
-    }
-
-    public static void map(BoardMemberCreateForm form, BoardMember boardMember, Board board){
-        boardMember.setUserId(form.getUserId());
-        boardMember.setRole(form.getRole());
-        boardMember.setBoard(board);
     }
 }
