@@ -18,11 +18,8 @@ public class SecurityConfig {
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers(HttpMethod.OPTIONS).permitAll()
-
                         .pathMatchers("/actuator/**").permitAll()
-
-                        .pathMatchers("/api/v1/users/login", "/api/v1/users/register").permitAll()
-
+                        .pathMatchers("/api/v1/users/login", "/api/v1/users/signup").permitAll()
                         .anyExchange().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
