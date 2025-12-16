@@ -22,12 +22,12 @@ import org.springframework.security.oauth2.jwt.Jwt;
 public class UserController {
 
     private UserService userService;
-
+    @PreAuthorize("permitAll()")
     @PostMapping("/signup")
     public UserDTO sign_Up(@RequestBody CreateUserForm form) {
         return userService.create(form);
     }
-
+    @PreAuthorize("permitAll()")
     @PostMapping("/login")
     public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(userService.login(request));
@@ -51,8 +51,8 @@ public class UserController {
     }
 
     /*
-    GET http://localhost:8081/api/v1/user/?page=0&size=10&sort=firstName,asc --local version
-    GET http://localhost:8080/user/?page=0&size=10&sort=firstName,asc -- gateway version
+    GET http://localhost:8080/api/v1/user/?page=0&size=10&sort=firstName,asc --local version
+    GET http://localhost:8081/user/?page=0&size=10&sort=firstName,asc -- gateway version
      */
     @GetMapping
     public Page<UserDTO> findAll(Pageable pageable) {

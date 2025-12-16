@@ -78,6 +78,7 @@ public class CardServiceImpl implements CardService {
             return CardMapper.map(cardRepository.save(card));
 
         int targetIndex = form.getNewIndex();
+
         var cardsInColumn = cardRepository.findByBoardColumnIdOrderByPositionAsc(column.getId())
                 .stream()
                 .filter(c -> !c.getId().equals(card.getId()))
