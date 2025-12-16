@@ -4,6 +4,7 @@ server:
 spring:
   application:
     name: api-gateway
+
   main:
     web-application-type: reactive
 
@@ -15,13 +16,15 @@ spring:
           jwk-set-uri: http://keycloak:8080/realms/micro-realm/protocol/openid-connect/certs
 
   cloud:
+    discovery:
+      reactive:
+        enabled: true
+
     gateway:
       discovery:
         locator:
-          enabled: true
-          lower-case-service-id: true
-      default-filters:
-        - TokenRelay
+          enabled: false
+
       routes:
         - id: user-service
           uri: lb://user-service
@@ -29,27 +32,6 @@ spring:
             - Path=/api/v1/users/**
           filters:
             - StripPrefix=2
-
-        - id: task-service
-          uri: lb://task-service
-          predicates:
-            - Path=/api/v1/boards/**, /api/v1/columns/**, /api/v1/cards/**, /api/v1/members/**, /api/v1/assignments/**, /api/v1/labels/**
-          filters:
-            - StripPrefix=2
-
-        - id: notification-service
-          uri: lb://notification-service
-          predicates:
-            - Path=/api/v1/notifications/**
-          filters:
-            - StripPrefix=2
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://eureka-server:8761/eureka/
-    register-with-eureka: true
-    fetch-registry: true
 
 management:
   endpoints:
@@ -59,3 +41,15 @@ management:
   endpoint:
     gateway:
       enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.security: DEBUG
