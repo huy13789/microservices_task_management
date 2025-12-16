@@ -96,7 +96,6 @@ public class UserServiceimpl implements UserService {
             return UserMapper.map(savedUser);
 
         } catch (Exception e) {
-            // ROLLBACK: Xóa user trên Keycloak nếu lưu DB lỗi
             log.error("Lỗi lưu DB. Đang rollback Keycloak User...", e);
             usersResource.get(keycloakUserId).remove();
             throw new RuntimeException("Đăng ký thất bại. Đã hoàn tác.");
@@ -178,7 +177,7 @@ public class UserServiceimpl implements UserService {
 
         user.setMail(jwt.getClaim("email"));
         user.setFirstName(jwt.getClaim("given_name"));
-        user.setLastName(jwt.getClaim("family_name"));
+        user.setLastName(jwt.getClaim("family_name"));;
 
         return userRepository.save(user);
     }
