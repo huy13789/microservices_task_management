@@ -4,13 +4,15 @@ import lombok.AllArgsConstructor;
 import org.example.taskservice.dto.CardAssignmentDto;
 import org.example.taskservice.form.CardAssignmentCreateForm;
 import org.example.taskservice.service.CardAssignmentService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1/asignments")
+@RequestMapping("/assignments")
+@PreAuthorize("hasRole('User')")
 public class CardAssignmentController {
     private CardAssignmentService cardAssignmentService;
 

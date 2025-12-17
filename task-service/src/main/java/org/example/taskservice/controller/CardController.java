@@ -7,11 +7,13 @@ import org.example.taskservice.form.CardUpdateForm;
 import org.example.taskservice.service.CardService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1/cards")
+@RequestMapping("/cards")
+@PreAuthorize("hasRole('User')")
 public class CardController {
     private CardService cardService;
 

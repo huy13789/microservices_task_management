@@ -33,6 +33,14 @@ spring:
           filters:
             - StripPrefix=2
 
+        - id: task-service
+          uri: lb://task-service
+          predicates:
+            - Path=/api/v1/boards/**, /api/v1/members/**, /api/v1/assignments/**, /api/v1/cards/**, /api/v1/columns/**, /api/v1/labels/**
+          filters:
+            - StripPrefix=2
+
+
 management:
   endpoints:
     web:

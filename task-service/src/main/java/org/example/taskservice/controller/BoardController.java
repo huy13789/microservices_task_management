@@ -7,11 +7,13 @@ import org.example.taskservice.form.BoardUpdateForm;
 import org.example.taskservice.service.BoardService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1/boards")
+@RequestMapping("/boards")
+@PreAuthorize("hasRole('User')")
 public class BoardController {
     private BoardService boardService;
 
