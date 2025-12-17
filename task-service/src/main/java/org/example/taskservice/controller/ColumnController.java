@@ -7,11 +7,13 @@ import org.example.taskservice.form.ColumnUpdateForm;
 import org.example.taskservice.service.ColumnService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1/columns")
+@RequestMapping("/columns")
+@PreAuthorize("hasRole('User')")
 public class ColumnController {
     private ColumnService columnService;
 

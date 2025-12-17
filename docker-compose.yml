@@ -103,6 +103,7 @@ services:
       SPRING_APPLICATION_NAME: task-service
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE}
       SPRING_DATASOURCE_URL: ${TASK_DATABASE_URL}
+      KEYCLOAK_URL: http://keycloak:8080
     depends_on:
       - eureka-server
       - postgres

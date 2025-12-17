@@ -6,12 +6,14 @@ import org.example.taskservice.form.LabelCreateForm;
 import org.example.taskservice.form.LabelUpdateForm;
 import org.example.taskservice.model.LabelEntityType;
 import org.example.taskservice.service.LabelService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/labels")
+@RequestMapping("/labels")
+@PreAuthorize("hasRole('User')")
 @AllArgsConstructor
 public class LabelController {
     private LabelService labelService;

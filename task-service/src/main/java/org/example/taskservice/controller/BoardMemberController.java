@@ -6,13 +6,15 @@ import org.example.taskservice.form.BoardMemberCreateForm;
 import org.example.taskservice.service.BoardMemberService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1/members")
+@RequestMapping("/members")
+@PreAuthorize("hasRole('User')")
 public class BoardMemberController {
     private BoardMemberService boardMemberService;
 
