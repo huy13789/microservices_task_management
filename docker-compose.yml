@@ -70,6 +70,13 @@ services:
     networks:
       - microservice-network
 
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - microservice-network
+
   user-service:
     build:
       context: ./user-service
@@ -83,6 +90,8 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       KEYCLOAK_URL: http://keycloak:8080
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
     depends_on:
       - eureka-server
       - postgres
@@ -102,8 +111,11 @@ services:
     environment:
       SPRING_APPLICATION_NAME: task-service
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE}
-      SPRING_DATASOURCE_URL: ${TASK_DATABASE_URL}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
       KEYCLOAK_URL: http://keycloak:8080
+      SPRING_DATA_REDIS_HOST: ${REDIS_HOST}
+      SPRING_DATA_REDIS_PORT: ${REDIS_PORT}
     depends_on:
       - eureka-server
       - postgres

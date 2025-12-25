@@ -1,7 +1,13 @@
-FROM azul/zulu-openjdk:17
-
+# --- Stage 1: Build ---
+FROM maven:3.9-eclipse-temurin-17-alpine AS build
 WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-COPY target/notification-service-0.0.1-SNAPSHOT.jar /app/notification-service-0.0.1-SNAPSHOT.jar
-
-ENTRYPOINT ["java", "-jar", "notification-service-0.0.1-SNAPSHOT.jar"]
+# --- Stage 2: Run ---
+FROM azul/zulu-openjdk:17
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
